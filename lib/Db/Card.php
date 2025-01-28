@@ -65,6 +65,7 @@ class Card extends RelationalEntity {
 	protected $type;
 	protected $lastModified;
 	protected $lastEditor;
+	protected $color;
 	protected $createdAt;
 	protected $labels;
 	protected $assignedUsers;
@@ -109,7 +110,7 @@ class Card extends RelationalEntity {
 		$this->addRelation('commentsUnread');
 		$this->addRelation('commentsCount');
 		$this->addResolvable('owner');
-
+		$this->addType('color', 'string');
 		$this->addRelation('relatedStack');
 		$this->addRelation('relatedBoard');
 	}

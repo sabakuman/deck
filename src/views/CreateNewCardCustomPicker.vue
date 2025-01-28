@@ -56,6 +56,18 @@
 				</div>
 			</div>
 
+			<div class="selector-wrapper color-selector">
+    		<div class="selector-wrapper--icon">
+       		 <PaletteIcon :size="20" />
+   			 </div>
+   			 <div class="selector-wrapper--selector">
+     	   		<label>{{ t('deck', 'Card color') }}</label>
+       			 <CardColorPicker
+          			  v-model="card.color"
+           			 :disabled="loading || !selectedBoard" />
+   				 </div>
+			</div>
+
 			<TagSelector :card="card"
 				:labels="labels"
 				:disabled="loading || !selectedBoard"
@@ -137,6 +149,8 @@ import CardPlusOutline from 'vue-material-design-icons/CardPlusOutline.vue'
 import FormatColumnsIcon from 'vue-material-design-icons/FormatColumns.vue'
 import DeckIcon from '../components/icons/DeckIcon.vue'
 import { showError } from '../helpers/errors.js'
+import CardColorPicker from '../components/card/CardColorPicker.vue'
+import PaletteIcon from 'vue-material-design-icons/Palette.vue'
 
 const cardApi = new CardApi()
 const apiClient = new BoardApi()
@@ -155,6 +169,8 @@ export default {
 		NcSelect,
 		NcEmptyContent,
 		NcLoadingIcon,
+		CardColorPicker,
+		PaletteIcon,
 	},
 	mixins: [Color],
 	props: {
@@ -183,6 +199,7 @@ export default {
 				labels: [],
 				assignedUsers: [],
 				duedate: null,
+				color: null,
 			},
 			boards: [],
 			stacksFromBoard: [],
@@ -258,6 +275,7 @@ export default {
 					title: this.card.title,
 					description: this.card.description,
 					duedate: this.card.duedate,
+					color: this.card.color,
 					labels: this.card.labels.map(label => label.id),
 					users: this.card.assignedUsers.map(user => {
 						return {
@@ -350,6 +368,18 @@ export default {
 	margin-left: 10px;
 	margin-right: 10px;
 }
+
+.color-selector {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    width: 100%;
+	
+ label {
+    display: block;
+    margin-bottom: 6px;
+    }
+}
+
 
 h2 {
 	text-align: center;
